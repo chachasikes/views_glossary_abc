@@ -14,7 +14,7 @@ function views_glossary_abc_slideshow_views_default_views() {
   // --- Paste default view here:
   $view = new view;
   $view->name = 'glossary_title_slideshow';
-  $view->description = 'A list of all content, filtered by letter, with interactive slideshow.';
+  $view->description = 'A list of all content, by filtered letter with interactive elements.';
   $view->tag = 'default';
   $view->view_php = '';
   $view->base_table = 'node';
@@ -51,6 +51,129 @@ function views_glossary_abc_slideshow_views_default_views() {
       'id' => 'title',
       'table' => 'node',
       'field' => 'title',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'field_image_fid' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'link_to_node' => 0,
+      'label_type' => 'none',
+      'format' => 'imagefield__lightbox2_compact__thumbnail__full',
+      'multiple' => array(
+        'group' => TRUE,
+        'multiple_number' => '',
+        'multiple_from' => '',
+        'multiple_reversed' => FALSE,
+      ),
+      'exclude' => 0,
+      'id' => 'field_image_fid',
+      'table' => 'node_data_field_image',
+      'field' => 'field_image_fid',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'field_media_value' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'link_to_node' => 0,
+      'label_type' => 'none',
+      'format' => 'default',
+      'multiple' => array(
+        'group' => 1,
+        'multiple_number' => '',
+        'multiple_from' => '',
+        'multiple_reversed' => 0,
+      ),
+      'exclude' => 0,
+      'id' => 'field_media_value',
+      'table' => 'node_data_field_media',
+      'field' => 'field_media_value',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'field_teaser_value' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 1,
+        'max_length' => '400',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'link_to_node' => 0,
+      'label_type' => 'none',
+      'format' => 'default',
+      'multiple' => array(
+        'group' => TRUE,
+        'multiple_number' => '',
+        'multiple_from' => '',
+        'multiple_reversed' => FALSE,
+      ),
+      'exclude' => 0,
+      'id' => 'field_teaser_value',
+      'table' => 'node_data_field_teaser',
+      'field' => 'field_teaser_value',
       'override' => array(
         'button' => 'Override',
       ),
@@ -123,6 +246,8 @@ function views_glossary_abc_slideshow_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
+  $handler->override_option('header_format', '1');
+  $handler->override_option('header_empty', 1);
   $handler->override_option('use_ajax', '1');
   $handler->override_option('items_per_page', 0);
   $handler->override_option('use_pager', '1');
@@ -202,6 +327,8 @@ function views_glossary_abc_slideshow_views_default_views() {
       'validate_argument_php' => '',
     ),
   ));
+  $handler->override_option('empty', 'No items found. <a href="/node/add/item">Create one.</a>');
+  $handler->override_option('empty_format', '1');
   $handler->override_option('style_plugin', 'slideshow');
   $handler->override_option('style_options', array(
     'type' => 'ul',
@@ -210,7 +337,7 @@ function views_glossary_abc_slideshow_views_default_views() {
     'views_slideshow_singleframe' => array(
       'timeout' => '5000',
       'delay' => '0',
-      'speed' => '700',
+      'speed' => '400',
       'start_paused' => 1,
       'fixed_height' => '1',
       'random' => '0',
@@ -228,7 +355,7 @@ function views_glossary_abc_slideshow_views_default_views() {
       'pager_click_to_page' => 0,
       'image_count' => '0',
       'items_per_slide' => '1',
-      'effect' => 'fade',
+      'effect' => 'scrollLeft',
       'sync' => '1',
       'nowrap' => '0',
       'advanced' => '',
@@ -238,15 +365,15 @@ function views_glossary_abc_slideshow_views_default_views() {
       ),
     ),
   ));
+  $handler->override_option('row_plugin', 'fields');
   $handler->override_option('row_options', array(
-    'relationship' => 'none',
-    'build_mode' => 'full',
-    'links' => 0,
-    'comments' => 0,
+    'inline' => array(),
+    'separator' => '',
+    'hide_empty' => 0,
   ));
-  $handler->override_option('path', 'abc-slides');
+  $handler->override_option('path', 'abc-slides-chach');
   $handler->override_option('menu', array(
-    'type' => 'normal',
+    'type' => 'none',
     'title' => 'Glossary',
     'description' => '',
     'weight' => '0',
@@ -259,7 +386,7 @@ function views_glossary_abc_slideshow_views_default_views() {
     'weight' => 0,
     'name' => 'navigation',
   ));
-  $handler = $view->new_display('attachment', 'Attachment', 'attachment');
+  $handler = $view->new_display('attachment', 'Attachment Glossary', 'attachment');
   $handler->override_option('fields', array(
     'title_glossary' => array(
       'label' => 'Node Title passed through filtering.',
@@ -305,7 +432,7 @@ function views_glossary_abc_slideshow_views_default_views() {
         'override' => 0,
         'items_per_page' => '25',
         'inline' => 1,
-        'separator' => '|',
+        'separator' => '',
       ),
       'wildcard' => 'all',
       'wildcard_substitution' => 'All',
@@ -351,9 +478,6 @@ function views_glossary_abc_slideshow_views_default_views() {
       'validate_argument_php' => '',
     ),
   ));
-  $handler->override_option('header', '<a href="/abc-slides">See all</a>');
-  $handler->override_option('header_format', '1');
-  $handler->override_option('header_empty', 1);
   $handler->override_option('attachment_position', 'before');
   $handler->override_option('inherit_arguments', 0);
   $handler->override_option('inherit_exposed_filters', FALSE);
@@ -363,7 +487,108 @@ function views_glossary_abc_slideshow_views_default_views() {
     'default' => 'default',
     'page' => 'page',
   ));
-  $handler = $view->new_display('attachment', 'Attachment', 'attachment_1');
+  $handler = $view->new_display('attachment', 'Attachment Node Titles', 'attachment_1');
+  $handler->override_option('fields', array(
+    'title' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'link_to_node' => 0,
+      'exclude' => 0,
+      'id' => 'title',
+      'table' => 'node',
+      'field' => 'title',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+    'view_node' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'text' => 'view',
+      'exclude' => 0,
+      'id' => 'view_node',
+      'table' => 'node',
+      'field' => 'view_node',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+    'edit_node' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'text' => '',
+      'exclude' => 0,
+      'id' => 'edit_node',
+      'table' => 'node',
+      'field' => 'edit_node',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
   $handler->override_option('arguments', array(
     'title_glossary' => array(
       'default_action' => 'default',
@@ -422,6 +647,58 @@ function views_glossary_abc_slideshow_views_default_views() {
     'default' => 'default',
     'page' => 'page',
   ));
+  $handler = $view->new_display('block', 'Block Node Titles', 'block_1');
+  $handler->override_option('arguments', array(
+    'title_glossary' => array(
+      'default_action' => 'default',
+      'style_plugin' => 'default_summary',
+      'style_options' => array(),
+      'wildcard' => 'all',
+      'wildcard_substitution' => 'All',
+      'title' => '',
+      'breadcrumb' => '',
+      'default_argument_type' => 'fixed',
+      'default_argument' => '',
+      'validate_type' => 'none',
+      'validate_fail' => 'not found',
+      'glossary' => 1,
+      'limit' => '1',
+      'case' => 'none',
+      'path_case' => 'none',
+      'transform_dash' => 0,
+      'filter_punctuation' => ', . * "',
+      'filter_numeric' => 0,
+      'id' => 'title_glossary',
+      'table' => 'node',
+      'field' => 'title_glossary',
+      'validate_user_argument_type' => 'uid',
+      'validate_user_roles' => array(
+        '2' => 0,
+      ),
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+      'default_options_div_prefix' => '',
+      'default_argument_fixed' => 'a',
+      'default_argument_user' => 0,
+      'default_argument_php' => '',
+      'validate_argument_node_type' => array(
+        'item' => 0,
+        'page' => 0,
+        'story' => 0,
+      ),
+      'validate_argument_node_access' => 0,
+      'validate_argument_nid_type' => 'nid',
+      'validate_argument_vocabulary' => array(),
+      'validate_argument_type' => 'tid',
+      'validate_argument_transform' => 0,
+      'validate_user_restrict_roles' => 0,
+      'validate_argument_php' => '',
+    ),
+  ));
+  $handler->override_option('block_description', '');
+  $handler->override_option('block_caching', -1);
   // --- End paste.
   $views[$view->name] = $view;
   return $views;
