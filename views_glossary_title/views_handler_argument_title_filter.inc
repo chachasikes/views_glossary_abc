@@ -72,7 +72,7 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
       $trim_punctuation = explode(' ', $this->options['filter_punctuation']);
     }
     if ($this->options['filter_numeric']) {
-      $digit = range(0,9);
+      $digit = range(0, 9);
       // Trim 6 digits worth of numbers. This works best to remove undesired digits.
       $trim_numeric = array_merge($digit, $digit, $digit, $digit, $digit, $digit);
     }
