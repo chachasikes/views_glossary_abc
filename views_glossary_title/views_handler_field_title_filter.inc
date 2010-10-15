@@ -21,13 +21,13 @@ class views_handler_field_title_filter extends views_handler_field {
     $form['filter_punctuation'] = array(
       '#type' => 'textfield',
       '#title' => t('Strip punctuation and strings'),
-      '#description' => t('Enter characters to remove, separated by spaces. Example: , . * ZONE_'),
+      '#description' => t('Enter characters to remove from beginning of title. Separated by spaces. Example: , . * ZONE_'),
       '#default_value' => $this->options['filter_punctuation'],
     );
     $form['filter_numeric'] = array(
       '#type' => 'checkbox',
       '#title' => t('Strip Numbers'),
-      '#description' => t('If checked, leading numbers will be removed from title.'),
+      '#description' => t('If checked, leading numbers (up to 6 digits long) will be removed from title'),
       '#default_value' => $this->options['filter_numeric'],
     );
   }
@@ -44,9 +44,9 @@ class views_handler_field_title_filter extends views_handler_field {
   }
 
   function filter_punctuation($value) {
-    $replace = explode(' ', $this->options['filter_punctuation']);
+    $replace = explode(' ', trim($this->options['filter_punctuation']));
     foreach($replace as $key) {
-      $value = str_replace($key, '', $value);
+      $value = preg_replace('/^[' . $key . ']{1,}/', '', $value);
     }
     return $value;
   }

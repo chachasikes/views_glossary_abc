@@ -22,7 +22,7 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
     $form['filter_punctuation'] = array(
       '#type' => 'textfield',
       '#title' => t('Strip punctuation and strings'),
-      '#description' => t('Enter characters to remove, separated by spaces. Example: , . * ZONE_'),
+      '#description' => t('Enter characters to remove from beginning of title. Separated by spaces. Example: , . * ZONE_'),
       '#default_value' => $this->options['filter_punctuation'],
     );
     $form['filter_numeric'] = array(

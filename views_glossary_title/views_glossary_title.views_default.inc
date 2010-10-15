@@ -14,7 +14,7 @@ function views_glossary_title_views_default_views() {
   // --- Paste default view here:
   $view = new view;
   $view->name = 'glossary_title';
-  $view->description = 'A list of all content, by filtered letter.';
+  $view->description = 'A list of all content (filtered glossary.)';
   $view->tag = 'default';
   $view->view_php = '';
   $view->base_table = 'node';
