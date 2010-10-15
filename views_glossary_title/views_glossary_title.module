@@ -3,8 +3,22 @@
 
 /**
  * @file
- * This module provides a set of alphabet icons to a views summary listing.
+ * Filterable node title field & argument for Views glossary summary.
+ * 
+ * Also includes a default view. Overrides 'glossary' view.
  */
+
+
+/**
+* Implements hook_help().
+*/
+function views_glossary_title_help($section) {
+  switch ($section) {
+    case 'admin/help#views_glossary_title':
+      // Return a line-break version of the module README
+      return filter_filter('process', 2, NULL, file_get_contents( dirname(__FILE__) . "/README.txt") );
+  }
+}
 
 function views_glossary_title_theme() {
   return array(
@@ -19,13 +33,6 @@ function views_glossary_title_theme() {
  * Implementation of hook_views_api().
  */
 function views_glossary_title_views_api() {
-
-/**
- * Development Note:
- * This is where we tell Drupal that our module wants to connect to views.
- * We tell it to use the Views 2 API.
- * Then we tell it where our views module files are located.
- */
   return array(
     'api' => 2,
     'path' => drupal_get_path('module', 'views_glossary_title'),

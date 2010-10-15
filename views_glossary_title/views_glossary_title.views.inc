@@ -34,10 +34,10 @@ function views_glossary_title_views_handlers() {
 function views_glossary_title_views_data_alter(&$data) {
   $data['node']['title_glossary'] = $data['node']['title'];
   $data['node']['title_glossary']['real field'] = 'title';
-  $data['node']['title_glossary']['title'] = t('Node Title passed through filtering.');
+  $data['node']['title_glossary']['title'] = t('Node Title (filtered)');
   $data['node']['title_glossary']['help'] = t('Field !field', array('!field' => 'Node Title'));
   $data['node']['title_glossary']['field']['handler'] = 'views_handler_field_title_filter';
   $data['node']['title_glossary']['argument']['handler'] = 'views_handler_argument_title_filter';
-  $data['node']['title_glossary']['field']['group'] = 'Views Glossary ABC';
+  $data['node']['title_glossary']['field']['group'] = 'Views Glossary Title';
   return $data;
 }

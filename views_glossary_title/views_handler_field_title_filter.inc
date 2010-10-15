@@ -32,17 +32,27 @@ class views_handler_field_title_filter extends views_handler_field {
     );
   }
 
+  /**
+   * Render the field.
+   */
   function render($values) {
     $value = $values->{$this->field_alias};
-    if ($this->options['filter_punctuation']) {
+    if (!empty($this->options['filter_punctuation'])) {
       $value = $this->filter_punctuation($value);
     }
-    if ($this->options['filter_numeric']) {
+    if (!empty($this->options['filter_numeric'])) {
       $value = $this->filter_numbers($value);
     }
     return $value;
   }
 
+  /**
+   * Replace leading punctuation values.
+   *
+   * @param string Field value.
+   *
+   * @return string Filtered Field value.
+   */
   function filter_punctuation($value) {
     $replace = explode(' ', trim($this->options['filter_punctuation']));
     foreach ($replace as $key) {
@@ -51,8 +61,14 @@ class views_handler_field_title_filter extends views_handler_field {
     return $value;
   }
 
+  /**
+   * Replace numbers from the beginning of the string.
+   *
+   * @param string Field value.
+   *
+   * @return string Filtered Field value.
+   */
   function filter_numbers($value) {
-    // Remove any numbers from the beginning of the string.
     $value = preg_replace('/^[0-9]{1,}/', '', $value);
     return $value;
   }

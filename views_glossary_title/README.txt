@@ -1,4 +1,4 @@
-// $Id$
+# $Id$
 
 Views Glossary Title
 --------------------
@@ -45,6 +45,8 @@ Usually in sites/all/modules
 glossary already configured. This overrides the glossary
 at the path /glossary. Glossaries can be tricky to 
 configure.
+
+You can edit the view here: admin/build/views/edit/glossary_title
 
 4. You can also use the field in configuring your view.
 * Add the Field to your view, or add an argument.

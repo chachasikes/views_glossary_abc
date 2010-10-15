@@ -4,7 +4,7 @@
 /**
  * @file
  *
- * Override a views style for views summary.
+ * Override a views argument for Views summary.
  */
 class views_handler_argument_title_filter extends views_handler_argument_string {
 
@@ -33,7 +33,9 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
     );
   }
 
-
+  /**
+   * Provide custom summary query.
+   */
   function summary_query() {
     if (empty($this->definition['many to one'])) {
       $this->ensure_my_table();
@@ -60,10 +62,14 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
   /**
    * Get the formula for this argument.
    *
-   * $this->ensure_my_table() MUST have been called prior to this.
+   * Build nested trim statement.
+   * Filter out numbers and selected punctuation from the glossary index.
+   * MYSQL does not have any ability return results based on the first
+   * alphabetical character. This trim() option is a best-option solution.
+   * Users enter punctuation, and a limited number of numeric digits to
+   * reduce the amount of processing time to get results.
    */
   function get_formula() {
-    // Build nested trim statement to filter out numbers and selected punctuation from the glossary index.
     $trim_array = array();
     $trim_punctuation = array();
     $trim_numeric = array();
@@ -71,9 +77,12 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
     if (!empty($this->options['filter_punctuation'])) {
       $trim_punctuation = explode(' ', $this->options['filter_punctuation']);
     }
-    if ($this->options['filter_numeric']) {
+    if (!empty($this->options['filter_numeric'])) {
       $digit = range(0, 9);
-      // Trim 6 digits worth of numbers. This works best to remove undesired digits.
+      // Trim 6 digits worth of numbers.
+      // Goes through each digit and removes any numbers, then repeats.
+      // Less process intensive than searching for a range 0-99,000
+      // of characters.
       $trim_numeric = array_merge($digit, $digit, $digit, $digit, $digit, $digit);
     }
     $trim_array = array_merge($trim_punctuation, $trim_numeric);
@@ -86,6 +95,7 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
       $trim_right .= ') ';
     }
 
+    // Rebuild query.
     $query = "SUBSTR(" . $trim_left . "
       $this->table_alias.$this->real_field "
       . $trim_right . ", 1, " . intval($this->options['limit']) . ")";

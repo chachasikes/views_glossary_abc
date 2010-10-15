@@ -224,7 +224,7 @@ function views_glossary_title_views_default_views() {
   $handler = $view->new_display('attachment', 'Attachment', 'attachment');
   $handler->override_option('fields', array(
     'title_glossary' => array(
-      'label' => 'Node Title passed through filtering.',
+      'label' => 'Title',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
