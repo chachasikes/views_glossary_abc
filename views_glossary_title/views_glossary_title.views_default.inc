@@ -13,8 +13,8 @@
 function views_glossary_title_views_default_views() {
   // --- Paste default view here:
   $view = new view;
-  $view->name = 'glossary_title';
-  $view->description = 'A list of all content (filtered glossary.)';
+  $view->name = 'glossary_filtered_title';
+  $view->description = 'A list of all content, by letter. Letters based on filtered node title fields.';
   $view->tag = 'default';
   $view->view_php = '';
   $view->base_table = 'node';
@@ -121,9 +121,8 @@ function views_glossary_title_views_default_views() {
     ),
   ));
   $handler->override_option('access', array(
-    'type' => 'none',
-    'role' => array(),
-    'perm' => '',
+    'type' => 'perm',
+    'perm' => 'access content',
   ));
   $handler->override_option('cache', array(
     'type' => 'none',
@@ -205,6 +204,10 @@ function views_glossary_title_views_default_views() {
       'validate_user_restrict_roles' => 0,
       'validate_argument_php' => '',
     ),
+  ));
+  $handler->override_option('access', array(
+    'type' => 'perm',
+    'perm' => 'access content',
   ));
   $handler->override_option('path', 'glossary');
   $handler->override_option('menu', array(
@@ -317,6 +320,10 @@ function views_glossary_title_views_default_views() {
       'validate_user_restrict_roles' => 0,
       'validate_argument_php' => '',
     ),
+  ));
+  $handler->override_option('access', array(
+    'type' => 'perm',
+    'perm' => 'access content',
   ));
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 0);
