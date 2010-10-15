@@ -21,14 +21,14 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
 
     $form['filter_punctuation'] = array(
       '#type' => 'textfield',
-      '#title' => t('Strip punctuation'),
-      '#description' => t('Enter characters to remove, separated by spaces. Example: , . *'),
+      '#title' => t('Strip punctuation and strings'),
+      '#description' => t('Enter characters to remove, separated by spaces. Example: , . * ZONE_'),
       '#default_value' => $this->options['filter_punctuation'],
     );
     $form['filter_numeric'] = array(
       '#type' => 'checkbox',
       '#title' => t('Strip Numbers'),
-      '#description' => t('If checked, numbers will be removed from title.'),
+      '#description' => t('If checked, leading numbers (up to 6 digits long) will be removed from title'),
       '#default_value' => $this->options['filter_numeric'],
     );
   }
@@ -72,7 +72,9 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
       $trim_punctuation = explode(' ', $this->options['filter_punctuation']);
     }
     if ($this->options['filter_numeric']) {
-      $trim_numeric = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+      $digit = range(0,9);
+      // Trim 6 digits worth of numbers. This works best to remove undesired digits.
+      $trim_numeric = array_merge($digit, $digit, $digit, $digit, $digit, $digit);
     }
     $trim_array = array_merge($trim_punctuation, $trim_numeric);
 
@@ -88,28 +90,5 @@ class views_handler_argument_title_filter extends views_handler_argument_string 
       $this->table_alias.$this->real_field "
       . $trim_right . ", 1, " . intval($this->options['limit']) . ")";
     return $query;
-  }
-
-
-
-  function render($values) {
-    $value = $values->{$this->field_alias};
-    if ($this->options['filter_punctuation']) {
-      $value = $this->filter_punctuation($value);
-    }
-    if ($this->options['filter_numbers']) {
-      $value = $this->filter_numbers($value);
-    }
-    return $value;
-  }
-
-  function filter_punctuation($value) {
-    $value = preg_replace('/[^a-zA-Z0-9-\s]/', '', $value);
-    return $value;
-  }
-
-  function filter_numbers($value) {
-    $value = preg_replace('/[^0-9-\s]/', '', $value);
-    return $value;
   }
 }

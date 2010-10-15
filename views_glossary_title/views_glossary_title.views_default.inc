@@ -104,11 +104,16 @@ function views_glossary_title_views_default_views() {
       'validate_argument_node_type' => array(
         'item' => 0,
         'page' => 0,
-        'story' => 0,
+        'feed' => 0,
+        'feed_item' => 0,
+        'flickr_item' => 0,
+        'flickr_set' => 0,
       ),
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
-      'validate_argument_vocabulary' => array(),
+      'validate_argument_vocabulary' => array(
+        '1' => 0,
+      ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
       'validate_user_restrict_roles' => 0,
@@ -123,7 +128,6 @@ function views_glossary_title_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'A is for All');
   $handler->override_option('use_ajax', '1');
   $handler->override_option('items_per_page', 0);
   $handler->override_option('use_pager', '1');
@@ -202,7 +206,7 @@ function views_glossary_title_views_default_views() {
       'validate_argument_php' => '',
     ),
   ));
-  $handler->override_option('path', 'abc');
+  $handler->override_option('path', 'glossary');
   $handler->override_option('menu', array(
     'type' => 'normal',
     'title' => 'Glossary',
@@ -298,20 +302,24 @@ function views_glossary_title_views_default_views() {
       'validate_argument_node_type' => array(
         'item' => 0,
         'page' => 0,
-        'story' => 0,
+        'feed' => 0,
+        'feed_item' => 0,
+        'flickr_item' => 0,
+        'flickr_set' => 0,
       ),
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
-      'validate_argument_vocabulary' => array(),
+      'validate_argument_vocabulary' => array(
+        '1' => 0,
+      ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
       'validate_user_restrict_roles' => 0,
       'validate_argument_php' => '',
     ),
   ));
-  $handler->override_option('header', '<a href="/abc">See all</a>');
   $handler->override_option('header_format', '1');
-  $handler->override_option('header_empty', 1);
+  $handler->override_option('header_empty', 0);
   $handler->override_option('attachment_position', 'before');
   $handler->override_option('inherit_arguments', 0);
   $handler->override_option('inherit_exposed_filters', FALSE);

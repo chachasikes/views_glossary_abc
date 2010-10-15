@@ -24,11 +24,6 @@ function views_glossary_title_views_handlers() {
       'views_handler_argument_title_filter' => array(
         'parent' => 'views_handler_argument_string',
       ),
-/*
-      'views_handler_sort_title_filter' => array(
-        'parent' => 'views_handler_sort',
-      ),
-*/
     ),
   );
 }
